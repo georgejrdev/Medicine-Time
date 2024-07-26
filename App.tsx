@@ -61,8 +61,6 @@ export default function App() {
         }
 
         await updateSavedMedicine(updatedMedicines)
-        console.log('delete')
-        console.log(updatedMedicines)
     }
 
     const setAllVisibleToFalse = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TextInput, Text, Dimensions, TouchableOpacity } from 'react-native'
-import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import { StyleSheet, View, TextInput, Text, Dimensions, TouchableOpacity, Platform } from 'react-native'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import { format } from 'date-fns'
 import { createMedicine, saveHourMedicine, InputMedicine, SavedMedicines } from '../../utils/createMedicine'
 
@@ -15,29 +15,29 @@ type CreateMedicineProps = {
 
 
 export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedicine, savedMedicine }: CreateMedicineProps) {
-    
+
     const [name, setName] = useState('')
     const [initDate, setInitDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
     const [initHour, setInitHour] = useState(new Date())
     const [spaceHour, setSpaceHour] = useState('')
-    const [isInitDatePickerVisible, setInitDatePickerVisibility] = useState(false)
-    const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false)
-    const [isInitHourPickerVisible, setInitHourPickerVisibility] = useState(false)
+    const [showInitDatePicker, setShowInitDatePicker] = useState(false)
+    const [showEndDatePicker, setShowEndDatePicker] = useState(false)
+    const [showInitHourPicker, setShowInitHourPicker] = useState(false)
 
-    const handleConfirmInitDate = (date: Date) => {
-        setInitDate(date)
-        setInitDatePickerVisibility(false)
+    const handleConfirmInitDate = (event: any, date?: Date) => {
+        setShowInitDatePicker(Platform.OS === 'ios')
+        if (date) setInitDate(date)
     }
 
-    const handleConfirmEndDate = (date: Date) => {
-        setEndDate(date)
-        setEndDatePickerVisibility(false)
+    const handleConfirmEndDate = (event: any, date?: Date) => {
+        setShowEndDatePicker(Platform.OS === 'ios')
+        if (date) setEndDate(date)
     }
 
-    const handleConfirmInitHour = (date: Date) => {
-        setInitHour(date)
-        setInitHourPickerVisibility(false)
+    const handleConfirmInitHour = (event: any, date?: Date) => {
+        setShowInitHourPicker(Platform.OS === 'ios')
+        if (date) setInitHour(date)
     }
 
     const handleConfirm = () => {
@@ -64,41 +64,44 @@ export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedici
                 onChangeText={text => setName(text)}
             />
 
-            <TouchableOpacity onPress={() => setInitDatePickerVisibility(true)} style={styles.initDate}>
+            <TouchableOpacity onPress={() => setShowInitDatePicker(true)} style={styles.initDate}>
                 <Text>Initial Date: {format(initDate, 'dd/MM/yyyy')}</Text>
             </TouchableOpacity>
 
-            <DateTimePickerModal
-                isVisible={isInitDatePickerVisible}
-                mode="date"
-                date={initDate}
-                onConfirm={handleConfirmInitDate}
-                onCancel={() => setInitDatePickerVisibility(false)}
-            />
+            {showInitDatePicker && (
+                <DateTimePicker
+                    value={initDate}
+                    mode="date"
+                    display="default"
+                    onChange={handleConfirmInitDate}
+                />
+            )}
 
-            <TouchableOpacity onPress={() => setEndDatePickerVisibility(true)} style={styles.endDate}>
+            <TouchableOpacity onPress={() => setShowEndDatePicker(true)} style={styles.endDate}>
                 <Text>End Date: {format(endDate, 'dd/MM/yyyy')}</Text>
             </TouchableOpacity>
 
-            <DateTimePickerModal
-                isVisible={isEndDatePickerVisible}
-                mode="date"
-                date={endDate}
-                onConfirm={handleConfirmEndDate}
-                onCancel={() => setEndDatePickerVisibility(false)}
-            />
+            {showEndDatePicker && (
+                <DateTimePicker
+                    value={endDate}
+                    mode="date"
+                    display="default"
+                    onChange={handleConfirmEndDate}
+                />
+            )}
 
-            <TouchableOpacity onPress={() => setInitHourPickerVisibility(true)} style={styles.initHour}>
+            <TouchableOpacity onPress={() => setShowInitHourPicker(true)} style={styles.initHour}>
                 <Text>Initial Hour: {format(initHour, 'HH:mm')}</Text>
             </TouchableOpacity>
 
-            <DateTimePickerModal
-                isVisible={isInitHourPickerVisible}
-                mode="time"
-                date={initHour}
-                onConfirm={handleConfirmInitHour}
-                onCancel={() => setInitHourPickerVisibility(false)}
-            />
+            {showInitHourPicker && (
+                <DateTimePicker
+                    value={initHour}
+                    mode="time"
+                    display="default"
+                    onChange={handleConfirmInitHour}
+                />
+            )}
 
             <TextInput
                 style={styles.spaceHour}
@@ -113,7 +116,6 @@ export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedici
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
