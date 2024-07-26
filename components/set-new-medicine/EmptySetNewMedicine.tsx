@@ -14,7 +14,7 @@ export default function EmptySetNewMedicine({ create }: EmptySetNewMedicineProps
     return (
         <View style={styles.container}>
             <RegisterButton create={create} />
-            <Text>Você ainda não cadastrou nenhum remédio</Text>
+            <Text>You haven't registered any medicine yet</Text>
         </View>
     )
 }

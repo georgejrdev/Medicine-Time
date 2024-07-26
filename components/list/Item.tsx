@@ -20,7 +20,7 @@ export default function Item({ name, hour, color, idMedicine, onDelete }: ItemPr
         <View style={[styles.container, { backgroundColor: color }]}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.hour}>{hour}</Text>
-            <Text onPress={deleteV} style={styles.hour}>Delete Temporario</Text>
+            <Text onPress={deleteV} style={styles.hour}>Delete</Text>
         </View>
     )
 }

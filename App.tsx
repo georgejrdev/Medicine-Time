@@ -6,16 +6,17 @@ import EmptySetNewMedicine from './components/set-new-medicine/EmptySetNewMedici
 import CreateMedicine from './components/create-medicine/CreateMedicine'
 import RenderList from './components/list/RenderList'
 import Navbar from './components/navbar/Navbar'
+import SelectColor from './components/select-color/SelectColor'
 import { SavedMedicines } from './utils/createMedicine'
 
-
 export default function App() {
-
     const [savedMedicine, setSavedMedicine] = useState<SavedMedicines>({})
     const [visibleCreateMedicine, setVisibleCreateMedicine] = useState(false)
     const [visibleEmptySetNewMedicine, setVisibleEmptySetNewMedicine] = useState(false)
     const [visibleNavbar, setVisibleNavbar] = useState(false)
     const [visibleList, setVisibleList] = useState(false)
+    const [visibleSelectColor, setVisibleSelectColor] = useState(false)
+    const [selectedColor, setSelectedColor] = useState('#E1E1E1')
 
     useEffect(() => {
         const loadSavedMedicines = async () => {
@@ -68,6 +69,7 @@ export default function App() {
         setVisibleList(false)
         setVisibleEmptySetNewMedicine(false)
         setVisibleNavbar(false)
+        setVisibleSelectColor(false)
     }
 
     const createMedicine = () => {
@@ -75,9 +77,14 @@ export default function App() {
         setVisibleCreateMedicine(true)
     }
 
-    const hideCreateMedicine = () => {
+    const hideElements = () => {
         setAllVisibleToFalse()
         initRender()
+    }
+
+    const showSelectColor = () => {
+        setAllVisibleToFalse()
+        setVisibleSelectColor(true)
     }
 
     const initRender = () => {
@@ -102,9 +109,11 @@ export default function App() {
 
             {visibleCreateMedicine && (
                 <CreateMedicine
-                    hideCreateMedicine={hideCreateMedicine}
+                    hideCreateMedicine={hideElements}
+                    showSelectColor={showSelectColor}
                     onUpdateSavedMedicine={updateSavedMedicine}
                     savedMedicine={savedMedicine}
+                    color={selectedColor} 
                 />
             )}
 
@@ -112,11 +121,14 @@ export default function App() {
                 <RenderList savedMedicine={savedMedicine} onDeleteMedicine={deleteMedicine} />
             )}
 
+            {visibleSelectColor && (
+                <SelectColor onSelectColor={setSelectedColor} create={createMedicine}/>
+            )}
+
             <StatusBar style="light" backgroundColor="#000" />
         </SafeAreaView>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {

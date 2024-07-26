@@ -6,15 +6,15 @@ import { createMedicine, saveHourMedicine, InputMedicine, SavedMedicines } from 
 
 const { width, height } = Dimensions.get('window')
 
-
 type CreateMedicineProps = {
     onUpdateSavedMedicine: (newSavedMedicine: SavedMedicines) => void
     hideCreateMedicine: () => void
+    showSelectColor: () => void
     savedMedicine: SavedMedicines
+    color: string 
 }
 
-
-export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedicine, savedMedicine }: CreateMedicineProps) {
+export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedicine, showSelectColor,savedMedicine, color }: CreateMedicineProps) {
 
     const [name, setName] = useState('')
     const [initDate, setInitDate] = useState(new Date())
@@ -47,7 +47,7 @@ export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedici
             format(endDate, 'yyyy-MM-dd'),
             format(initHour, 'HH:mm'),
             parseInt(spaceHour, 10),
-            'blue'
+            color 
         )
 
         let updatedSavedMedicine = saveHourMedicine(medicine, savedMedicine)
@@ -60,7 +60,7 @@ export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedici
         <View style={styles.container}>
             <TextInput
                 style={styles.name}
-                placeholder='Nome'
+                placeholder='Name'
                 onChangeText={text => setName(text)}
             />
 
@@ -105,13 +105,17 @@ export default function CreateMedicine({ onUpdateSavedMedicine, hideCreateMedici
 
             <TextInput
                 style={styles.spaceHour}
-                placeholder='Intervalo de Tempo (Horas)'
+                placeholder='Interval (Hours)'
                 onChangeText={text => setSpaceHour(text)}
                 keyboardType="numeric"
             />
 
+            <TouchableOpacity onPress={() => showSelectColor()} style={[styles.selectColor, { backgroundColor: color }]}>
+                <Text>Select Color</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.createButton} onPress={handleConfirm}>
-                <Text style={styles.buttonText}>Criar</Text>
+                <Text style={styles.buttonText}>Create</Text>
             </TouchableOpacity>
         </View>
     )
@@ -160,6 +164,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFD09E',
         height: 50,
         textAlign: 'center',
+    },
+    selectColor: {
+        width: '90%',
+        height: 50,
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     createButton: {
         backgroundColor: '#B0F0A5',
