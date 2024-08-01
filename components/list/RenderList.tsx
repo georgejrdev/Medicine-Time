@@ -24,7 +24,7 @@ export default function RenderList({ savedMedicine, onDeleteMedicine }: RenderLi
                     key={generateId()}
                     name={`${medicine.name} ->`}
                     hour={`${medicine.hours}:${medicine.minutes}`}
-                    color={medicine.color || '#E1E1E1'}
+                    color={medicine.color || '#FC716F'}
                     idMedicine={medicine.id}
                     onDelete={onDeleteMedicine}
                 />

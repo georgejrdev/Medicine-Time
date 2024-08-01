@@ -18,15 +18,15 @@ export default function SelectColor({ create, onSelectColor }: SelectColorProps)
     return (
         <View style={styles.container}>
             <View style={styles.colorContainer}>
-                <Color colorProps='#B0F0A5' onPress={() => setSelectedColor('#B0F0A5')} />
-                <Color colorProps='#FB9F9E' onPress={() => setSelectedColor('#FB9F9E')} />
+                <Color colorProps='#90F27F' onPress={() => setSelectedColor('#90F27F')} />
+                <Color colorProps='#FC716F' onPress={() => setSelectedColor('#FC716F')} />
                 <Color colorProps='#FFD09E' onPress={() => setSelectedColor('#FFD09E')} />
-                <Color colorProps='#FFDDD8' onPress={() => setSelectedColor('#FFDDD8')} />
-                <Color colorProps='#F4F0BC' onPress={() => setSelectedColor('#F4F0BC')} />
+                <Color colorProps='#FCA6CA' onPress={() => setSelectedColor('#FCA6CA')} />
+                <Color colorProps='#DED454' onPress={() => setSelectedColor('#DED454')} />
                 <Color colorProps='#C997C6' onPress={() => setSelectedColor('#C997C6')} />
-                <Color colorProps='#B0EFEF' onPress={() => setSelectedColor('#B0EFEF')} />
-                <Color colorProps='#A0E1B2' onPress={() => setSelectedColor('#A0E1B2')} />
-                <Color colorProps='#83D9DC' onPress={() => setSelectedColor('#83D9DC')} />
+                <Color colorProps='#69DEDE' onPress={() => setSelectedColor('#69DEDE')} />
+                <Color colorProps='#48B265' onPress={() => setSelectedColor('#48B265')} />
+                <Color colorProps='#2F979B' onPress={() => setSelectedColor('#2F979B')} />
             </View>
 
             <TouchableOpacity style={styles.button} onPress={create}>

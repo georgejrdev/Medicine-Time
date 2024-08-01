@@ -16,7 +16,7 @@ export default function App() {
     const [visibleNavbar, setVisibleNavbar] = useState(false)
     const [visibleList, setVisibleList] = useState(false)
     const [visibleSelectColor, setVisibleSelectColor] = useState(false)
-    const [selectedColor, setSelectedColor] = useState('#E1E1E1')
+    const [selectedColor, setSelectedColor] = useState('#FC716F')
 
     useEffect(() => {
         const loadSavedMedicines = async () => {

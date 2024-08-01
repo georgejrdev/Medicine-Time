@@ -12,9 +12,10 @@ interface ItemProps {
 
 export default function Item({ name, hour, color, idMedicine, onDelete }: ItemProps) {
 
-  const deleteV = async () => {
-        await onDelete(idMedicine)
+    const deleteV = () => {
+        onDelete(idMedicine)
     }
+
 
     return (
         <View style={[styles.container, { backgroundColor: color }]}>
